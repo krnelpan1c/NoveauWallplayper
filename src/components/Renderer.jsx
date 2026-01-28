@@ -82,7 +82,7 @@ const HTMLRenderer = ({ wallpaper }) => {
                     });
                 }
             }
-            setIframeUrl(`/wallplayper-content/${wallpaper.id}/${wallpaper.entryPoint}`);
+            setIframeUrl(`${import.meta.env.BASE_URL}wallplayper-content/${wallpaper.id}/${wallpaper.entryPoint}`);
         };
         loadHtml();
 

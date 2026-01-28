@@ -50,10 +50,11 @@ const getFileFromDB = async (wallpaperId, filePath) => {
 self.addEventListener('fetch', (event) => {
     const url = new URL(event.request.url);
 
-    if (url.pathname.startsWith('/wallplayper-content/')) {
+    if (url.pathname.includes('/wallplayper-content/')) {
         const parts = url.pathname.split('/');
-        const wallpaperId = parts[2];
-        const filePath = decodeURIComponent(parts.slice(3).join('/'));
+        const index = parts.indexOf('wallplayper-content');
+        const wallpaperId = parts[index + 1];
+        const filePath = decodeURIComponent(parts.slice(index + 2).join('/'));
 
         event.respondWith(
             (async () => {

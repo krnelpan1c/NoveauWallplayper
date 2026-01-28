@@ -6,7 +6,8 @@ import App from './App.jsx'
 // Manual registration for injectManifest SW to ensure it works in dev
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js', { type: 'module' })
+    const swUrl = `${import.meta.env.BASE_URL}sw.js`;
+    navigator.serviceWorker.register(swUrl, { type: 'module' })
       .then(reg => {
         console.log('SW registered:', reg);
       })
