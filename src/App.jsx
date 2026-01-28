@@ -1,10 +1,10 @@
-import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import PickerPage from './pages/PickerPage';
 import ViewerPage from './pages/ViewerPage';
 
 function App() {
   return (
-    <Router>
+    <Router basename="/NoveauWallplayper">
       <Routes>
         <Route path="/" element={<PickerPage />} />
         <Route path="/view/:id" element={<ViewerPage />} />
