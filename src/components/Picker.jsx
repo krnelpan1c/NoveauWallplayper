@@ -23,10 +23,6 @@ const Picker = ({ wallpapers, onSelect, onUpload, onRefresh, activeId }) => {
                 >
                     <div className="space-y-4">
                         <div className="flex items-center gap-3">
-                            <div className="w-10 h-10 rounded-2xl bg-blue-500/10 flex items-center justify-center border border-blue-500/20">
-                                <Sparkles className="w-6 h-6 text-blue-400" />
-                            </div>
-                            <span className="text-blue-400 font-bold tracking-widest text-xs uppercase">Premium Gallery</span>
                         </div>
                         <h1 className="text-5xl md:text-7xl font-thin text-white leading-tight">
                             Wallplayper
