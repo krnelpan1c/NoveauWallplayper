@@ -8,13 +8,31 @@ const UploadModal = ({ isOpen, onClose, onRefresh }) => {
     const [name, setName] = useState('');
     const [file, setFile] = useState(null);
     const [customPreview, setCustomPreview] = useState(null);
+    const [processedData, setProcessedData] = useState(null);
     const [isProcessing, setIsProcessing] = useState(false);
 
     const handleFileChange = async (e) => {
         const selected = e.target.files[0];
         if (!selected) return;
         setFile(selected);
-        if (!name) setName(selected.name.replace(/\.[^/.]+$/, ""));
+        setProcessedData(null);
+
+        if (selected.name.endsWith('.zip')) {
+            setIsProcessing(true);
+            try {
+                const processed = await processZip(selected);
+                setProcessedData(processed);
+                if (processed.name) setName(processed.name);
+                if (processed.preview) setCustomPreview(processed.preview);
+            } catch (error) {
+                console.error('Failed to pre-process ZIP:', error);
+                if (!name) setName(selected.name.replace(/\.[^/.]+$/, ""));
+            } finally {
+                setIsProcessing(false);
+            }
+        } else {
+            if (!name) setName(selected.name.replace(/\.[^/.]+$/, ""));
+        }
     };
 
     const handlePreviewChange = async (e) => {
@@ -29,11 +47,13 @@ const UploadModal = ({ isOpen, onClose, onRefresh }) => {
 
         setIsProcessing(true);
         try {
-            let processed;
-            if (file.name.endsWith('.zip')) {
-                processed = await processZip(file);
-            } else {
-                processed = await processVideo(file);
+            let processed = processedData;
+            if (!processed) {
+                if (file.name.endsWith('.zip')) {
+                    processed = await processZip(file);
+                } else {
+                    processed = await processVideo(file);
+                }
             }
 
             await saveWallpaper({
@@ -48,6 +68,7 @@ const UploadModal = ({ isOpen, onClose, onRefresh }) => {
             setName('');
             setFile(null);
             setCustomPreview(null);
+            setProcessedData(null);
         } catch (error) {
             console.error('Upload failed:', error);
             alert(`Failed to process wallpaper: ${error.message || 'Unknown error'}. Ensure it is a valid ZIP or video file.`);

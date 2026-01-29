@@ -26,14 +26,19 @@ export const processZip = async (file) => {
     let metadata = {};
 
     // Check for LivelyInfo.json
-    const infoFile = contents.file('LivelyInfo.json') || contents.file(/[/\\]LivelyInfo.json$/);
+    let infoFile = contents.file('LivelyInfo.json');
+    if (!infoFile) {
+        const matches = contents.file(/[/\\]LivelyInfo.json$/);
+        if (matches.length > 0) infoFile = matches[0];
+    }
+
     if (infoFile) {
         try {
             const infoText = await infoFile.async('string');
             // Remove BOM if present
             const cleanText = infoText.replace(/^\uFEFF/, '');
             metadata = JSON.parse(cleanText);
-            entryPoint = metadata.FileName || '';
+            entryPoint = metadata.FileName || metadata.filename || '';
         } catch (e) {
             console.warn('Failed to parse LivelyInfo.json', e);
         }
@@ -65,6 +70,25 @@ export const processZip = async (file) => {
 
     await Promise.all(filePromises);
 
+    // Try to find a preview image
+    let preview = null;
+    const title = metadata.Title || metadata.title || metadata.Name || metadata.name || file.name.replace(/\.zip$/i, '');
+    const thumbnail = metadata.Thumbnail || metadata.thumbnail || 'preview.gif';
+
+    const previewFile = files.find(f =>
+        f.path.toLowerCase() === thumbnail.toLowerCase() ||
+        f.path.toLowerCase().endsWith('/' + thumbnail.toLowerCase()) ||
+        f.path.toLowerCase().endsWith('\\' + thumbnail.toLowerCase())
+    );
+
+    if (previewFile) {
+        preview = await new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onload = (e) => resolve(e.target.result);
+            reader.readAsDataURL(previewFile.blob);
+        });
+    }
+
     // If still no entry point, find the first HTML file available in the list
     if (!entryPoint || !files.find(f => f.path === entryPoint)) {
         const htmlFile = files.find(f => f.path.toLowerCase().endsWith('.html'));
@@ -76,11 +100,11 @@ export const processZip = async (file) => {
     }
 
     return {
-        name: metadata.Title || file.name.replace('.zip', ''),
+        name: title,
         type: 'html',
         entryPoint,
         files,
-        preview: null // Will be handled by UI picker
+        preview
     };
 };
 
