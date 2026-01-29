@@ -80,7 +80,7 @@ const UploadModal = ({ isOpen, onClose, onRefresh }) => {
                     <div className="px-10 py-8 flex items-center justify-between border-b border-white/5 bg-white/5">
                         <div className="space-y-1">
                             <h2 className="text-3xl font-thin text-white tracking-tight">Upload Content</h2>
-                            <p className="text-zinc-500 text-sm font-medium">Add a new digital masterpiece to your collection.</p>
+                            <p className="text-zinc-500 text-sm font-medium">Add a wallpaper to your gallery.</p>
                         </div>
                         <button
                             onClick={onClose}
@@ -98,7 +98,7 @@ const UploadModal = ({ isOpen, onClose, onRefresh }) => {
                                 type="text"
                                 value={name}
                                 onChange={(e) => setName(e.target.value)}
-                                placeholder="Enter a display name..."
+                                placeholder="Set a display name..."
                                 className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 text-white placeholder-zinc-700 focus:outline-none focus:ring-2 focus:ring-blue-500/50 transition-all font-medium text-lg"
                             />
                         </div>

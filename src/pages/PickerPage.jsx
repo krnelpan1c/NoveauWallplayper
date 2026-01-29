@@ -70,8 +70,7 @@ const PickerPage = () => {
                             <div className="absolute inset-0 bg-gradient-to-r from-blue-600 to-indigo-600 opacity-0 group-hover:opacity-100 transition-opacity" />
                             <div className="relative flex items-center gap-4">
                                 <Monitor className="w-6 h-6 group-hover:animate-bounce" />
-                                <span className="font-black text-xl uppercase tracking-tighter">Enter Fullscreen</span>
-                                <Sparkles className="w-5 h-5 opacity-0 group-hover:opacity-100 transition-opacity delay-100" />
+                                <span className="font-black text-xl uppercase tracking-tighter">Play Wallpaper</span>
                             </div>
                         </button>
                     </motion.div>
