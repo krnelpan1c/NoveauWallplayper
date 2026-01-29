@@ -2,13 +2,15 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { getWallpapers } from '../lib/db';
 import Picker from '../components/Picker';
 import UploadModal from '../components/UploadModal';
+import HelpModal from '../components/HelpModal';
 import { useNavigate } from 'react-router-dom';
-import { Monitor, Sparkles } from 'lucide-react';
+import { Monitor, HelpCircle } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const PickerPage = () => {
     const [wallpapers, setWallpapers] = useState([]);
     const [isUploadOpen, setIsUploadOpen] = useState(false);
+    const [isHelpOpen, setIsHelpOpen] = useState(false);
     const [activeId, setActiveId] = useState(null);
     const navigate = useNavigate();
 
@@ -54,6 +56,17 @@ const PickerPage = () => {
                 />
             </div>
 
+            {/* Help Button */}
+            <div className="fixed bottom-6 right-6 z-[60]">
+                <button
+                    onClick={() => setIsHelpOpen(true)}
+                    className="p-4 glass-button rounded-2xl text-zinc-400 hover:text-white transition-all shadow-xl hover:shadow-blue-500/20 active:scale-90 group"
+                    title="How it works"
+                >
+                    <HelpCircle className="w-6 h-6 group-hover:scale-110 transition-transform" />
+                </button>
+            </div>
+
             {/* Persistent Launch Control */}
             <AnimatePresence>
                 {activeId && (
@@ -81,6 +94,11 @@ const PickerPage = () => {
                 isOpen={isUploadOpen}
                 onClose={() => setIsUploadOpen(false)}
                 onRefresh={fetchWallpapers}
+            />
+
+            <HelpModal
+                isOpen={isHelpOpen}
+                onClose={() => setIsHelpOpen(false)}
             />
         </div>
     );
