@@ -18,21 +18,21 @@ export default defineConfig({
       manifest: {
         name: 'Wallplayper',
         short_name: 'Wallplayper',
-        description: 'Lively Wallpaper style PWA for interactive and video wallpapers',
-        theme_color: '#0a0a0a',
+        description: 'Live wallpapers for any device',
+        theme_color: '#000000',
         icons: [
           {
-            src: 'pwa-192x192.png',
+            src: 'x192.png',
             sizes: '192x192',
             type: 'image/png'
           },
           {
-            src: 'pwa-512x512.png',
+            src: 'x512.png',
             sizes: '512x512',
             type: 'image/png'
           },
           {
-            src: 'pwa-512x512.png',
+            src: 'x512.png',
             sizes: '512x512',
             type: 'image/png',
             purpose: 'any maskable'
