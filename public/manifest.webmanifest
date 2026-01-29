@@ -6,7 +6,7 @@
     "background_color": "#000000",
     "display": "standalone",
     "orientation": "any",
-    "scope": "/NoveauWallplayper/",
+    "scope": "https://krnelpan1c.github.io/NoveauWallplayper/",
     "start_url": "https://krnelpan1c.github.io/NoveauWallplayper/",
     "icons": [
         {
