@@ -28,7 +28,7 @@ const Picker = ({ wallpapers, onSelect, onUpload, onRefresh, activeId }) => {
                             Wallplayper
                         </h1>
                         <p className="text-gray-400 text-lg font-light max-w-xl leading-relaxed">
-                            Elevate your desktop with interactive digital art. Simple, powerful, and purely aesthetic.
+                            Live wallpapers for any desktop device.
                         </p>
                     </div>
 
@@ -136,7 +136,7 @@ const Picker = ({ wallpapers, onSelect, onUpload, onRefresh, activeId }) => {
                             </div>
                             <h3 className="text-3xl font-light text-white mb-3">Your gallery is empty</h3>
                             <p className="text-zinc-500 max-w-sm mb-10 leading-relaxed text-lg font-light">
-                                Start your journey by uploading your first interactive or video wallpaper.
+                                Start by uploading a video file or interactive wallpaper.
                             </p>
                             <button
                                 onClick={onUpload}
