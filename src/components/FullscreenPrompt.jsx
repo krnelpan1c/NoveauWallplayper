@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from 'react';
 
 const FullscreenPrompt = ({ onDismiss }) => {
+    const [shouldRender, setShouldRender] = useState(false);
     const [isVisible, setIsVisible] = useState(false);
     const [dontShowAgain, setDontShowAgain] = useState(false);
 
     useEffect(() => {
+        setShouldRender(true);
         // Subtle entrance delay
-        const timer = setTimeout(() => setIsVisible(true), 1000);
+        const timer = setTimeout(() => setIsVisible(true), 100);
         return () => clearTimeout(timer);
     }, []);
+
+    if (!shouldRender) return null;
 
     const handleDismiss = () => {
         setIsVisible(false);
@@ -19,14 +23,18 @@ const FullscreenPrompt = ({ onDismiss }) => {
         setTimeout(onDismiss, 500);
     };
 
-    if (!isVisible && !dontShowAgain) return null;
-
     return (
-        <div
-            className={`fixed top-8 left-1/2 -translate-x-1/2 z-50 transition-all duration-500 ease-out transform ${isVisible ? 'translate-y-0 opacity-100' : '-translate-y-12 opacity-0'
-                }`}
-        >
-            <div className="glass-card px-8 py-6 rounded-2xl flex flex-col items-center gap-4 shadow-2xl border border-white/10 max-w-md text-center">
+        <div className={`fixed inset-0 z-50 flex items-start justify-center pt-24 transition-all duration-500 ${isVisible ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}>
+            {/* Blurred Backdrop */}
+            <div
+                className="absolute inset-0 bg-black/40 backdrop-blur-md"
+                onClick={handleDismiss}
+            />
+
+            <div
+                className={`relative glass-card px-8 py-6 rounded-2xl flex flex-col items-center gap-4 shadow-2xl border border-white/10 max-w-md text-center transition-all duration-500 ease-out transform ${isVisible ? 'translate-y-0 scale-100' : '-translate-y-12 scale-95'
+                    }`}
+            >
                 <div className="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center mb-1">
                     <svg className="w-6 h-6 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
