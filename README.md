@@ -1,10 +1,11 @@
 # Wallplayper
-Allows you to use live wallpapers on any Chromebook or desktop device with a browser. No app install required.
+Allows you to use live wallpapers on any Chromebook or desktop device with a browser. No app install required, even works on managed/enterprise devices.
 Supports video files and web based wallpapers in the Lively Wallpaper's zip format.
 
 ## How it works
 This web app is a simple video player and HTML viwer that you put in the background in fullscreen and overlap your app windows on top of, creating a live wallpaper effect.
 Supports most video formats as long as your browser supports them, plus web based wallpapers that can change dynamically or have some form of interactivity (for example, some wallpapers react to mouse movement or have a realtime clock & calendar)
+
 
 ## Explanation
 This is a newer, more functional version of a project I mande a while back.
